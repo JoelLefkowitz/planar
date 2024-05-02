@@ -1,0 +1,13 @@
+__pycache__/
+.DS_Store
+.yarn/
+*_conandeps
+*.dblite
+*.egg-info/
+*.o
+*conan*.sh
+dist/
+metadata/
+node_modules/
+venv/
+yarn-error.log
