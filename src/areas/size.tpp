@@ -1,8 +1,8 @@
 #ifndef PLANAR_AREAS_SIZE_TPP
 #define PLANAR_AREAS_SIZE_TPP
 
+#include "../linear/vector.hpp"
 #include "size.hpp"
-#include "vector.tpp"
 #include <algorithm>
 #include <fmt/core.h>
 

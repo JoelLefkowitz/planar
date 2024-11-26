@@ -1,7 +1,7 @@
 #ifndef PLANAR_POINTS_POINT_HPP
 #define PLANAR_POINTS_POINT_HPP
 
-#include "vector.hpp"
+#include "../linear/vector.hpp"
 #include <string>
 #include <vector>
 

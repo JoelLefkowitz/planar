@@ -1,5 +1,5 @@
 #include "matrix.tpp"
-#include "point.tpp"
+#include "../points/point.tpp"
 #include <cstddef>
 #include <gtest/gtest.h>
 #include <vector>

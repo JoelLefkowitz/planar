@@ -1,5 +1,5 @@
 #include "point.tpp"
-#include "vector.tpp"
+#include "../linear/vector.tpp"
 #include <gtest/gtest.h>
 
 using namespace linear;

@@ -1,8 +1,8 @@
-#include "bounds.hpp"
-#include "matrix.tpp"
-#include "point.tpp"
-#include "segment.tpp"
-#include "vector.tpp"
+#include "../areas/bounds.hpp"
+#include "../linear/matrix.tpp"
+#include "../linear/vector.tpp"
+#include "../points/point.tpp"
+#include "../points/segment.tpp"
 #include <gtest/gtest.h>
 
 using namespace linear;

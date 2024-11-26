@@ -7,7 +7,11 @@ Planar geometry structures and transformations.
 
 ## Installing
 
-You can download the [sources](https://download-directory.github.io?url=https://github.com/joellefkowitz/planar/tree/master/src).
+```bash
+conan search planar
+```
+
+You can also download the [sources](https://download-directory.github.io?url=https://github.com/joellefkowitz/planar/tree/master/src).
 
 ## Documentation
 

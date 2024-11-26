@@ -7,11 +7,20 @@ class Recipe(ConanFile):
     name = "planar"
     version = "0.0.0"
 
+    requires = [
+        "fmt/10.2.1",
+        "functional/0.1.0",
+    ]
+
     def build_requirements(self):
         self.test_requires("gtest/1.12.1")
 
     def export_sources(self):
-        for source in ["src/*.[cht]pp", "SConstruct.py"]:
+        for source in [
+            "conanfile.py",
+            "SConstruct.py",
+            "src/*.[cht]pp",
+        ]:
             copy(
                 self,
                 source,
@@ -23,7 +32,7 @@ class Recipe(ConanFile):
         SConsDeps(self).generate()
 
     def build(self):
-        self.run("scons shared")
+        self.run("scons runtime")
 
     def package(self):
         copy(

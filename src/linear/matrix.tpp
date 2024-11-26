@@ -1,19 +1,18 @@
 #ifndef PLANAR_LINEAR_MATRIX_TPP
 #define PLANAR_LINEAR_MATRIX_TPP
 
-#include "../functional/generics/foldable/fold.tpp"
-#include "../functional/generics/functor/map.tpp"
-#include "../functional/instances/vectors/elements.tpp"
-#include "../functional/instances/vectors/immutable.tpp"
-#include "../functional/instances/vectors/mutable.tpp"
-#include "../functional/instances/vectors/ranges.tpp"
-#include "dimensions.hpp"
+#include "../areas/size.tpp"
+#include "../points/point.tpp"
+#include "../scalar/dimensions.hpp"
+#include "../scalar/slice.hpp"
 #include "matrix.hpp"
-#include "point.tpp"
-#include "size.tpp"
-#include "slice.hpp"
 #include <cstddef>
-#include <functional>
+#include <functional/generics/foldable/fold.tpp>
+#include <functional/generics/functor/map.tpp>
+#include <functional/instances/vectors/elements.tpp>
+#include <functional/instances/vectors/immutable.tpp>
+#include <functional/instances/vectors/mutable.tpp>
+#include <functional/instances/vectors/ranges.tpp>
 #include <vector>
 
 template <typename T>

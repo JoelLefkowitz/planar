@@ -1,9 +1,8 @@
 #ifndef PLANAR_AREAS_BOUNDS_HPP
 #define PLANAR_AREAS_BOUNDS_HPP
 
-#include "point.hpp"
+#include "../points/point.hpp"
 #include "size.tpp"
-#include "vector.tpp"
 #include <cstddef>
 #include <string>
 #include <utility>

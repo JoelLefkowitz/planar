@@ -1,17 +1,17 @@
 #ifndef PLANAR_POINTS_POINT_TPP
 #define PLANAR_POINTS_POINT_TPP
 
-#include "../functional/generics/functor/zip.tpp"
-#include "../functional/instances/numbers/numbers.hpp"
-#include "../functional/instances/vectors/elements.tpp"
-#include "../functional/instances/vectors/immutable.tpp"
-#include "../functional/instances/vectors/mutable.tpp"
-#include "../functional/instances/vectors/ranges.tpp"
+#include "../areas/size.tpp"
+#include "../linear/vector.tpp"
 #include "point.hpp"
-#include "size.tpp"
-#include "vector.tpp"
 #include <cstddef>
 #include <fmt/core.h>
+#include <functional/generics/functor/zip.tpp>
+#include <functional/instances/numbers/numbers.hpp>
+#include <functional/instances/vectors/elements.tpp>
+#include <functional/instances/vectors/immutable.tpp>
+#include <functional/instances/vectors/mutable.tpp>
+#include <functional/instances/vectors/ranges.tpp>
 #include <functional>
 
 template <typename T>

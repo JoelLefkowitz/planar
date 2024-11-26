@@ -1,6 +1,6 @@
 #include "bezier.hpp"
-#include "../functional/generics/functor/map.tpp"
 #include "point.hpp"
+#include <functional/generics/functor/map.tpp>
 #include <gtest/gtest.h>
 
 using namespace linear;

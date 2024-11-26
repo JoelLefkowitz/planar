@@ -1,13 +1,13 @@
 #include "bezier.hpp"
-#include "../functional/generics/functor/map.tpp"
-#include "../functional/instances/vectors/ranges.tpp"
-#include "bounds.hpp"
+#include "../areas/bounds.hpp"
+#include "../areas/size.tpp"
+#include "../linear/vector.tpp"
 #include "point.tpp"
-#include "size.tpp"
-#include "vector.tpp"
 #include <algorithm>
 #include <cmath>
 #include <fmt/core.h>
+#include <functional/generics/functor/map.tpp>
+#include <functional/instances/vectors/ranges.tpp>
 
 linear::Bezier::Bezier(
     const linear::Point<double> &p1,

@@ -1,7 +1,7 @@
 #ifndef PLANAR_AREAS_SIZE_HPP
 #define PLANAR_AREAS_SIZE_HPP
 
-#include "vector.hpp"
+#include "../linear/vector.hpp"
 
 namespace linear {
     template <typename T>
