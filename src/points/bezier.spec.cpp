@@ -51,6 +51,6 @@ TEST(Bezier, SquareError) {
 
     EXPECT_NEAR(bezier.square_error(points), 1, 0.01);
 
-    points.push_back({1, 0});
+    points.emplace_back(1, 0);
     EXPECT_NEAR(bezier.square_error(points), 2, 0.01);
 }

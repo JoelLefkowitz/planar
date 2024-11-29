@@ -76,13 +76,13 @@ bool linear::Bounds::operator<=(const Bounds &rhs) const { return !(rhs < *this)
 
 bool linear::Bounds::operator>=(const Bounds &rhs) const { return !(*this < rhs); }
 
-linear::Bounds linear::Bounds::operator+(const linear::Size<double> &rhs) const { return Bounds(point, size + rhs); }
+linear::Bounds linear::Bounds::operator+(const linear::Size<double> &rhs) const { return {point, size + rhs}; }
 
-linear::Bounds linear::Bounds::operator-(const linear::Size<double> &rhs) const { return Bounds(point, size - rhs); }
+linear::Bounds linear::Bounds::operator-(const linear::Size<double> &rhs) const { return {point, size - rhs}; }
 
-linear::Bounds linear::Bounds::operator*(const double &rhs) const { return Bounds(point, size * rhs); }
+linear::Bounds linear::Bounds::operator*(const double &rhs) const { return {point, size * rhs}; }
 
-linear::Bounds linear::Bounds::operator/(const double &rhs) const { return Bounds(point, size / rhs); }
+linear::Bounds linear::Bounds::operator/(const double &rhs) const { return {point, size / rhs}; }
 
 std::string linear::Bounds::repr() const { return fmt::format("{{{}, {}}}", point.repr(), size.repr()); }
 
@@ -229,10 +229,10 @@ std::vector<linear::Point<double>> linear::Bounds::sample(size_t side) const {
 }
 
 std::vector<linear::Bounds> linear::Bounds::rows(size_t n) const {
-    linear::Size<double> segment(size.width(), size.height() / n);
+    linear::Size<double> segment(size.width(), size.height() / static_cast<double>(n));
 
     std::function<linear::Bounds(size_t)> split = [&segment, &point = point](auto i) {
-        linear::Point<double> row(point.x(), point.y() + segment.height() * i);
+        linear::Point<double> row(point.x(), point.y() + segment.height() * static_cast<double>(i));
         return linear::Bounds(row, segment);
     };
 
@@ -240,7 +240,7 @@ std::vector<linear::Bounds> linear::Bounds::rows(size_t n) const {
 }
 
 std::vector<linear::Bounds> linear::Bounds::cols(size_t n) const {
-    linear::Size<double> segment(size.width() / n, size.height());
+    linear::Size<double> segment(size.width() / static_cast<double>(n), size.height());
 
     std::function<linear::Bounds(size_t)> split = [&segment, &point = point](auto i) {
         linear::Point<double> row(point.x() + segment.width() * i, point.y());
@@ -260,10 +260,10 @@ linear::Matrix<linear::Bounds> linear::Bounds::tile(const Dimensions &dimensions
         return bounds;
     };
 
-    return linear::Matrix(
+    return {
         functional::product(shift, functional::range(dimensions.rows), functional::range(dimensions.cols)),
         dimensions.cols
-    );
+    };
 }
 
 linear::Matrix<linear::Bounds> linear::Bounds::grid(

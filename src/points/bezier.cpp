@@ -113,7 +113,7 @@ double linear::Bezier::square_error(const std::vector<Point<double>> &points) co
     for (const auto t : functional::linspace(0.0, 1.0, 100)) {
         auto projection = point(1 - t);
 
-        while (copy.size() > 0 && projection.x() <= copy.back().x()) {
+        while (!copy.empty() && projection.x() <= copy.back().x()) {
             error += std::pow(projection.y() - copy.back().y(), 2);
             copy.pop_back();
         }
