@@ -1,16 +1,35 @@
+import os
+
 from conan import ConanFile
 from conan.tools.files import copy
 from conan.tools.scons import SConsDeps
+from conan.tools.layout import basic_layout
 
 
-class Recipe(ConanFile):
+class PlanarConan(ConanFile):
     name = "planar"
+    description = "Planar geometry structures and transformations."
     version = "0.0.0"
+    license = "MIT"
 
-    requires = [
+    url = "https://github.com/conan-io/conan-center-index"
+    homepage = "https://github.com/JoelLefkowitz/planar"
+
+    topics = (
+        "vectors",
+        "areas",
+        "bounds",
+        "coordinates",
+        "geometry",
+    )
+
+    requires = (
         "fmt/10.2.1",
-        "functional/0.1.0",
-    ]
+        "functional/0.0.0",
+    )
+
+    def package_info(self):
+        self.cpp_info.libs = [self.name]
 
     def build_requirements(self):
         self.test_requires("gtest/1.12.1")
@@ -32,7 +51,7 @@ class Recipe(ConanFile):
         SConsDeps(self).generate()
 
     def build(self):
-        self.run("scons runtime")
+        self.run("scons build")
 
     def package(self):
         copy(
@@ -47,6 +66,3 @@ class Recipe(ConanFile):
             f"{self.build_folder}/dist",
             f"{self.package_folder}/lib",
         )
-
-    def package_info(self):
-        self.cpp_info.libs = [self.name]

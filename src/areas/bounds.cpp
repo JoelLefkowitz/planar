@@ -8,10 +8,10 @@
 #include <fmt/core.h>
 #include <functional/generics/functor/map.tpp>
 #include <functional/generics/functor/product.tpp>
-#include <functional/instances/booleans/booleans.tpp>
-#include <functional/instances/vectors/elements.tpp>
-#include <functional/instances/vectors/immutable.tpp>
-#include <functional/instances/vectors/ranges.tpp>
+#include <functional/implementations/booleans/booleans.tpp>
+#include <functional/implementations/vectors/elements.tpp>
+#include <functional/implementations/vectors/immutable.tpp>
+#include <functional/implementations/vectors/ranges.tpp>
 #include <functional>
 #include <string>
 #include <vector>

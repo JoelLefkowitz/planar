@@ -7,11 +7,11 @@
 #include <cstddef>
 #include <fmt/core.h>
 #include <functional/generics/functor/zip.tpp>
-#include <functional/instances/numbers/numbers.hpp>
-#include <functional/instances/vectors/elements.tpp>
-#include <functional/instances/vectors/immutable.tpp>
-#include <functional/instances/vectors/mutable.tpp>
-#include <functional/instances/vectors/ranges.tpp>
+#include <functional/implementations/numbers/numbers.hpp>
+#include <functional/implementations/vectors/elements.tpp>
+#include <functional/implementations/vectors/immutable.tpp>
+#include <functional/implementations/vectors/mutable.tpp>
+#include <functional/implementations/vectors/ranges.tpp>
 #include <functional>
 
 template <typename T>

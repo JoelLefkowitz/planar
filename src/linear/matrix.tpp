@@ -9,10 +9,10 @@
 #include <cstddef>
 #include <functional/generics/foldable/fold.tpp>
 #include <functional/generics/functor/map.tpp>
-#include <functional/instances/vectors/elements.tpp>
-#include <functional/instances/vectors/immutable.tpp>
-#include <functional/instances/vectors/mutable.tpp>
-#include <functional/instances/vectors/ranges.tpp>
+#include <functional/implementations/vectors/elements.tpp>
+#include <functional/implementations/vectors/immutable.tpp>
+#include <functional/implementations/vectors/mutable.tpp>
+#include <functional/implementations/vectors/ranges.tpp>
 #include <vector>
 
 template <typename T>

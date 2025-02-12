@@ -7,7 +7,7 @@
 #include <cmath>
 #include <fmt/core.h>
 #include <functional/generics/functor/map.tpp>
-#include <functional/instances/vectors/ranges.tpp>
+#include <functional/implementations/vectors/ranges.tpp>
 
 linear::Bezier::Bezier(
     const linear::Point<double> &p1,

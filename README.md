@@ -2,7 +2,7 @@
 
 Planar geometry structures and transformations.
 
-![Review](https://img.shields.io/github/actions/workflow/status/JoelLefkowitz/planar/review.yml)
+![Review](https://img.shields.io/github/actions/workflow/status/JoelLefkowitz/planar/review.yaml)
 ![Quality](https://img.shields.io/codacy/grade/_)
 
 ## Installing
@@ -11,7 +11,7 @@ Planar geometry structures and transformations.
 conan search planar
 ```
 
-You can also download the [sources](https://download-directory.github.io?url=https://github.com/joellefkowitz/planar/tree/master/src).
+You can also download the [sources](https://download-directory.github.io?url=https://github.com/JoelLefkowitz/planar/tree/master/src).
 
 ## Documentation
 
