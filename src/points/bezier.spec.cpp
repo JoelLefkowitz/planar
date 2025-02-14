@@ -7,7 +7,7 @@ using namespace linear;
 
 TEST(Bezier, FromPoints) {
     Bezier reference({0, 0}, {0, 1}, {1, 1}, {1, 0});
-    auto   points = reference.sample(100);
+    auto points = reference.sample(100);
 
     Bezier bezier(points);
 

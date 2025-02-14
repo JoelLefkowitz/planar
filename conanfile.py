@@ -6,6 +6,8 @@ from conan.tools.layout import basic_layout
 
 
 class PlanarConan(ConanFile):
+    requires = ("fmt/11.1.3",)
+
     def layout(self):
         basic_layout(self, src_folder="src")
 

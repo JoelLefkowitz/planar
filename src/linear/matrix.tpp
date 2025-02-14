@@ -16,7 +16,8 @@
 #include <vector>
 
 template <typename T>
-linear::Matrix<T>::Matrix(const std::vector<std::vector<T>> &content) : content(content) {}
+linear::Matrix<T>::Matrix(const std::vector<std::vector<T>> &content) : content(content) {
+}
 
 template <typename T>
 linear::Matrix<T>::Matrix(const std::vector<T> &flat, size_t size) {
@@ -70,9 +71,13 @@ linear::Matrix<T> linear::Matrix<T>::slice(const linear::Slice &rows, const line
 
 template <typename T>
 T linear::Matrix<T>::sum() const {
-    std::function<T(T, T)> add = [](auto acc, auto x) { return acc + x; };
+    std::function<T(T, T)> add = [](auto acc, auto x) {
+        return acc + x;
+    };
 
-    std::function<T(T, std::vector<T>)> sum = [&add](auto acc, auto x) { return acc + functional::fold(add, T(), x); };
+    std::function<T(T, std::vector<T>)> sum = [&add](auto acc, auto x) {
+        return acc + functional::fold(add, T(), x);
+    };
 
     return functional::fold(sum, T(), content);
 }

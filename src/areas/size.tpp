@@ -7,13 +7,16 @@
 #include <fmt/core.h>
 
 template <typename T>
-linear::Size<T>::Size() : size({0, 0}) {}
+linear::Size<T>::Size() : size({0, 0}) {
+}
 
 template <typename T>
-linear::Size<T>::Size(T w, T h) : size({w, h}) {}
+linear::Size<T>::Size(T w, T h) : size({w, h}) {
+}
 
 template <typename T>
-linear::Size<T>::Size(const Vector<T> &size) : size(size) {}
+linear::Size<T>::Size(const Vector<T> &size) : size(size) {
+}
 
 template <typename T>
 bool linear::Size<T>::operator==(const Size<T> &rhs) const {

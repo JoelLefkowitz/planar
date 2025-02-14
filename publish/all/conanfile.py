@@ -36,6 +36,8 @@ class PlanarConan(ConanFile):
         "LICENSE.md",
     )
 
+    requires = ("fmt/11.1.3",)
+
     def layout(self):
         basic_layout(self, src_folder="src")
 

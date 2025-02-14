@@ -18,7 +18,8 @@ linear::Bezier::Bezier(
     : p1(p1)
     , p2(p2)
     , p3(p3)
-    , p4(p4) {}
+    , p4(p4) {
+}
 
 linear::Bezier::Bezier(const std::vector<Point<double>> &points) {
     if (points.size() < 2) {
@@ -61,14 +62,18 @@ bool linear::Bezier::operator==(const Bezier &rhs) const {
     return p1 == rhs.p1 && p2 == rhs.p2 && p3 == rhs.p3 && p4 == rhs.p4;
 }
 
-bool linear::Bezier::operator!=(const Bezier &rhs) const { return !(*this == rhs); }
+bool linear::Bezier::operator!=(const Bezier &rhs) const {
+    return !(*this == rhs);
+}
 
 std::string linear::Bezier::repr() const {
     return fmt::format("[{}, {}, {}, {}]", p1.repr(), p2.repr(), p3.repr(), p4.repr());
 }
 
 linear::Point<double> linear::Bezier::point(double t) const {
-    auto term = [t](auto i, auto j) { return std::pow((1 - t), i) * std::pow(t, j); };
+    auto term = [t](auto i, auto j) {
+        return std::pow((1 - t), i) * std::pow(t, j);
+    };
 
     auto cube = [&term](auto q1, auto q2, auto q3, auto q4) {
         return q1 * term(3, 0) + q2 * 3 * term(2, 1) + q3 * 3 * term(1, 2) + q4 * term(0, 3);
@@ -81,7 +86,9 @@ linear::Point<double> linear::Bezier::point(double t) const {
 }
 
 std::vector<linear::Point<double>> linear::Bezier::sample(size_t n) const {
-    std::function<Point<double>(double)> point = [this](auto t) { return this->point(t); };
+    std::function<Point<double>(double)> point = [this](auto t) {
+        return this->point(t);
+    };
     return functional::map(point, functional::linspace(0.0, 1.0, n));
 }
 

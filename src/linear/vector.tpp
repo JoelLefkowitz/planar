@@ -8,7 +8,8 @@
 
 template <typename T>
 linear::Vector<T>::Vector(T x, T y) : x(x)
-                                    , y(y) {}
+                                    , y(y) {
+}
 
 template <typename T>
 bool linear::Vector<T>::operator==(const Vector<T> &rhs) const {

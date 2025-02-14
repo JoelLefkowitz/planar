@@ -8,4 +8,6 @@ TEST(Dimensions, Operators) {
     EXPECT_TRUE(Dimensions(1, 1) == Dimensions(1, 1));
 }
 
-TEST(Dimensions, Repr) { EXPECT_EQ(Dimensions(1, 1).repr(), "{rows: 1, cols: 1}"); }
+TEST(Dimensions, Repr) {
+    EXPECT_EQ(Dimensions(1, 1).repr(), "{rows: 1, cols: 1}");
+}

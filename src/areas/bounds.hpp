@@ -27,7 +27,7 @@ namespace linear {
     class Bounds {
       public:
         Point<double> point;
-        Size<double>  size;
+        Size<double> size;
 
         static Bounds enclose(const std::vector<Point<double>> &points);
 
@@ -66,7 +66,7 @@ namespace linear {
         bool overlaps(const Bounds &bounds) const;
 
         Point<double> center() const;
-        Bounds        center(const Size<double> &region) const;
+        Bounds center(const Size<double> &region) const;
 
         Bounds rebase() const;
 
@@ -96,7 +96,7 @@ namespace linear {
         Matrix<Bounds> tile(const Dimensions &dimensions, const Size<double> &padding = {0.0, 0.0}) const;
 
         Matrix<Bounds> grid(
-            const Dimensions   &dimensions,
+            const Dimensions &dimensions,
             const Size<double> &padding = {0.0, 0.0},
             const Size<double> &margin  = {0.0, 0.0}
         ) const;

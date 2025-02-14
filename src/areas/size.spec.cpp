@@ -22,7 +22,9 @@ TEST(Size, NonNegative) {
     EXPECT_EQ(Size(1, 1) * -2, Size(0, 0));
 }
 
-TEST(Size, Repr) { EXPECT_EQ(Size(1, 1).repr(), "{width: 1, height: 1}"); }
+TEST(Size, Repr) {
+    EXPECT_EQ(Size(1, 1).repr(), "{width: 1, height: 1}");
+}
 
 TEST(Size, Empty) {
     EXPECT_TRUE(Size(0, 0).empty());

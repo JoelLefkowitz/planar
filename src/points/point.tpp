@@ -15,13 +15,16 @@
 #include <functional>
 
 template <typename T>
-linear::Point<T>::Point() : point({0, 0}) {}
+linear::Point<T>::Point() : point({0, 0}) {
+}
 
 template <typename T>
-linear::Point<T>::Point(T x, T y) : point({x, y}) {}
+linear::Point<T>::Point(T x, T y) : point({x, y}) {
+}
 
 template <typename T>
-linear::Point<T>::Point(const Vector<T> &point) : point(point) {}
+linear::Point<T>::Point(const Vector<T> &point) : point(point) {
+}
 
 template <typename T>
 bool linear::Point<T>::operator==(const Point<T> &rhs) const {

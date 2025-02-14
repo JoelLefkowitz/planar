@@ -19,6 +19,10 @@ TEST(Vector, Operators) {
     EXPECT_EQ(Vector(2, 2) / 2, Vector(1, 1));
 }
 
-TEST(Vector, Repr) { EXPECT_EQ(Vector(1, 1).repr(), "{x: 1, y: 1}"); }
+TEST(Vector, Repr) {
+    EXPECT_EQ(Vector(1, 1).repr(), "{x: 1, y: 1}");
+}
 
-TEST(Vector, Magnitude) { EXPECT_EQ(Vector(3, 4).magnitude(), 5.0); }
+TEST(Vector, Magnitude) {
+    EXPECT_EQ(Vector(3, 4).magnitude(), 5.0);
+}

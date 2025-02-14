@@ -12,7 +12,9 @@ TEST(Point, Operators) {
     EXPECT_EQ(Point(1, 1) - Size(1, 1), Point(0, 0));
 }
 
-TEST(Point, Repr) { EXPECT_EQ(Point(1, 1).repr(), "{x: 1, y: 1}"); }
+TEST(Point, Repr) {
+    EXPECT_EQ(Point(1, 1).repr(), "{x: 1, y: 1}");
+}
 
 TEST(Point, Zero) {
     EXPECT_TRUE(Point(0, 0).zero());
@@ -46,7 +48,9 @@ TEST(Point, FlipY) {
     EXPECT_EQ(Point(1, 1).flip_y(2), Point(1, 3));
 }
 
-TEST(Point, Shift) { EXPECT_EQ(Point(1, 1).shift({1, 2}), Point(2, 3)); }
+TEST(Point, Shift) {
+    EXPECT_EQ(Point(1, 1).shift({1, 2}), Point(2, 3));
+}
 
 TEST(Point, Center) {
     EXPECT_EQ(Point(1, 1).center({10, 10}), Point(-4, -4));

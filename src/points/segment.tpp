@@ -7,7 +7,8 @@
 
 template <typename T>
 linear::Segment<T>::Segment(const Point<T> &start, const Point<T> &end) : start(start)
-                                                                        , end(end) {}
+                                                                        , end(end) {
+}
 
 template <typename T>
 bool linear::Segment<T>::operator==(const Segment<T> &rhs) const {
