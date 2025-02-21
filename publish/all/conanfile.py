@@ -36,7 +36,10 @@ class PlanarConan(ConanFile):
         "LICENSE.md",
     )
 
-    requires = ("fmt/11.1.3",)
+    requires = (
+        "fmt/11.1.3",
+        "funky/0.2.1",
+    )
 
     def layout(self):
         basic_layout(self)
