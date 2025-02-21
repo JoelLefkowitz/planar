@@ -6,31 +6,29 @@
 #include "../scalar/dimensions.hpp"
 #include <cstddef>
 #include <fmt/core.h>
-#include <functional/generics/functor/map.tpp>
-#include <functional/generics/functor/product.tpp>
-#include <functional/implementations/booleans/booleans.tpp>
-#include <functional/implementations/vectors/elements.tpp>
-#include <functional/implementations/vectors/immutable.tpp>
-#include <functional/implementations/vectors/ranges.tpp>
 #include <functional>
+#include <funky/concrete/booleans.tpp>
+#include <funky/generics/iterables.tpp>
+#include <funky/generics/pairs.tpp>
+#include <funky/generics/sets.tpp>
 #include <string>
 #include <vector>
 
-linear::Bounds::Bounds() : point(0, 0), size(0, 0) {
+planar::Bounds::Bounds() : point(0, 0), size(0, 0) {
 }
 
-linear::Bounds::Bounds(double x, double y, double w, double h) : point(Point(x, y)), size(Size(w, h)) {
+planar::Bounds::Bounds(double x, double y, double w, double h) : point(Point(x, y)), size(Size(w, h)) {
 }
 
-linear::Bounds::Bounds(const Point<int> &point, const Size<int> &size)
+planar::Bounds::Bounds(const Point<int> &point, const Size<int> &size)
     : point(Point<double>(point.x(), point.y()))
     , size(Size<double>(size.width(), size.height())) {
 }
 
-linear::Bounds::Bounds(const Point<double> &point, const Size<double> &size) : point(point), size(size) {
+planar::Bounds::Bounds(const Point<double> &point, const Size<double> &size) : point(point), size(size) {
 }
 
-linear::Bounds::Bounds(const std::vector<Bounds> &bounds) {
+planar::Bounds::Bounds(const std::vector<Bounds> &bounds) {
     using F = std::function<Point<double>(const Bounds &)>;
 
     F left = [](const auto &x) {
@@ -40,13 +38,16 @@ linear::Bounds::Bounds(const std::vector<Bounds> &bounds) {
         return x.point + x.size;
     };
 
-    auto interval = enclose(functional::concat(functional::map(left, bounds), functional::map(right, bounds)));
+    auto interval = enclose(funky::concat(
+        funky::map<std::vector<Point<double>>>(left, bounds),
+        funky::map<std::vector<Point<double>>>(right, bounds)
+    ));
 
     point = interval.point;
     size  = interval.size;
 }
 
-linear::Bounds::Bounds(const Matrix<Bounds> &bounds) {
+planar::Bounds::Bounds(const Matrix<Bounds> &bounds) {
     auto limits = bounds.size();
 
     auto first = bounds.get({0, 0});
@@ -56,73 +57,76 @@ linear::Bounds::Bounds(const Matrix<Bounds> &bounds) {
     size  = last.point.projection() - first.point.projection() + last.size;
 }
 
-linear::Bounds linear::Bounds::enclose(const std::vector<Point<double>> &points) {
-    std::function<double(Point<double>)> x = [](const auto &p) {
-        return p.x();
-    };
-    std::function<double(Point<double>)> y = [](const auto &p) {
-        return p.y();
-    };
-
-    Point<double> point(functional::min(functional::map(x, points)), functional::min(functional::map(y, points)));
-
-    Size<double> size(
-        functional::max(functional::map(x, points)) - point.x(),
-        functional::max(functional::map(y, points)) - point.y()
+planar::Bounds planar::Bounds::enclose(const std::vector<Point<double>> &points) {
+    auto x = funky::map<std::vector<double>>(
+        [](const auto &p) {
+            return p.x();
+        },
+        points
     );
+
+    auto y = funky::map<std::vector<double>>(
+        [](const auto &p) {
+            return p.y();
+        },
+        points
+    );
+
+    Point<double> point(funky::min(x, 0), funky::min(y, 0));
+    Size<double> size(funky::max(x, 0) - point.x(), funky::max(y, 0) - point.y());
 
     return {point, size};
 }
 
-bool linear::Bounds::operator==(const Bounds &rhs) const {
+bool planar::Bounds::operator==(const Bounds &rhs) const {
     return point == rhs.point && size == rhs.size;
 }
 
-bool linear::Bounds::operator!=(const Bounds &rhs) const {
+bool planar::Bounds::operator!=(const Bounds &rhs) const {
     return !(*this == rhs);
 }
 
-bool linear::Bounds::operator<(const Bounds &rhs) const {
+bool planar::Bounds::operator<(const Bounds &rhs) const {
     return point < rhs.point || (point == rhs.point && size < rhs.size);
 }
 
-bool linear::Bounds::operator>(const Bounds &rhs) const {
+bool planar::Bounds::operator>(const Bounds &rhs) const {
     return rhs < *this;
 }
 
-bool linear::Bounds::operator<=(const Bounds &rhs) const {
+bool planar::Bounds::operator<=(const Bounds &rhs) const {
     return !(rhs < *this);
 }
 
-bool linear::Bounds::operator>=(const Bounds &rhs) const {
+bool planar::Bounds::operator>=(const Bounds &rhs) const {
     return !(*this < rhs);
 }
 
-linear::Bounds linear::Bounds::operator+(const linear::Size<double> &rhs) const {
+planar::Bounds planar::Bounds::operator+(const planar::Size<double> &rhs) const {
     return {point, size + rhs};
 }
 
-linear::Bounds linear::Bounds::operator-(const linear::Size<double> &rhs) const {
+planar::Bounds planar::Bounds::operator-(const planar::Size<double> &rhs) const {
     return {point, size - rhs};
 }
 
-linear::Bounds linear::Bounds::operator*(const double &rhs) const {
+planar::Bounds planar::Bounds::operator*(const double &rhs) const {
     return {point, size * rhs};
 }
 
-linear::Bounds linear::Bounds::operator/(const double &rhs) const {
+planar::Bounds planar::Bounds::operator/(const double &rhs) const {
     return {point, size / rhs};
 }
 
-std::string linear::Bounds::repr() const {
+std::string planar::Bounds::repr() const {
     return fmt::format("{{{}, {}}}", point.repr(), size.repr());
 }
 
-bool linear::Bounds::empty() const {
+bool planar::Bounds::empty() const {
     return size.empty();
 }
 
-std::vector<linear::Point<double>> linear::Bounds::corners() const {
+std::vector<planar::Point<double>> planar::Bounds::corners() const {
     return {
         point,
         point + Size<double>(size.width(), 0),
@@ -131,7 +135,7 @@ std::vector<linear::Point<double>> linear::Bounds::corners() const {
     };
 }
 
-std::vector<linear::Point<double>> linear::Bounds::midpoints() const {
+std::vector<planar::Point<double>> planar::Bounds::midpoints() const {
     return {
         point + Size<double>(size.width() / 2, 0),
         point + Size<double>(0, size.height() / 2),
@@ -140,7 +144,7 @@ std::vector<linear::Point<double>> linear::Bounds::midpoints() const {
     };
 }
 
-std::vector<linear::Segment<double>> linear::Bounds::segments() const {
+std::vector<planar::Segment<double>> planar::Bounds::segments() const {
     auto points = corners();
     return {
         {points[0], points[1]},
@@ -150,9 +154,9 @@ std::vector<linear::Segment<double>> linear::Bounds::segments() const {
     };
 }
 
-bool linear::Bounds::contains(const Point<double> &rhs) const {
+bool planar::Bounds::contains(const Point<double> &rhs) const {
     auto upper = point + size;
-    return functional::all(std::vector<bool>({
+    return funky::all(std::vector<bool>({
         point.x() <= rhs.x(),
         point.y() <= rhs.y(),
         rhs.x() <= upper.x(),
@@ -160,35 +164,35 @@ bool linear::Bounds::contains(const Point<double> &rhs) const {
     }));
 }
 
-bool linear::Bounds::overlaps(const Bounds &bounds) const {
+bool planar::Bounds::overlaps(const Bounds &bounds) const {
     std::function<bool(const Point<double> &x)> contains_corner = [&bounds](const auto &x) {
         return bounds.contains(x);
     };
 
-    return functional::any(contains_corner, corners());
+    return funky::any(contains_corner, corners());
 }
 
-linear::Point<double> linear::Bounds::center() const {
+planar::Point<double> planar::Bounds::center() const {
     return point + size / 2;
 }
 
-linear::Bounds linear::Bounds::center(const Size<double> &region) const {
+planar::Bounds planar::Bounds::center(const Size<double> &region) const {
     return align(region, Alignment::Center);
 }
 
-linear::Bounds linear::Bounds::rebase() const {
+planar::Bounds planar::Bounds::rebase() const {
     return {0, 0, size.width(), size.height()};
 }
 
-linear::Bounds linear::Bounds::shift(const Size<double> &move) const {
+planar::Bounds planar::Bounds::shift(const Size<double> &move) const {
     return {point + move, size};
 }
 
-linear::Bounds linear::Bounds::pad(const Size<double> &border) const {
+planar::Bounds planar::Bounds::pad(const Size<double> &border) const {
     return {point + border / 2, size - border};
 }
 
-linear::Bounds linear::Bounds::constrain(const Size<double> &limits) const {
+planar::Bounds planar::Bounds::constrain(const Size<double> &limits) const {
     auto w = limits.width();
     auto h = limits.height();
 
@@ -205,7 +209,7 @@ linear::Bounds linear::Bounds::constrain(const Size<double> &limits) const {
     return center((H * w / h) < w && H < h ? narrow : wide);
 }
 
-linear::Bounds linear::Bounds::align(const Size<double> &region, Alignment alignment) const {
+planar::Bounds planar::Bounds::align(const Size<double> &region, Alignment alignment) const {
     auto steps = 0;
 
     auto w = region.width();
@@ -222,19 +226,19 @@ linear::Bounds linear::Bounds::align(const Size<double> &region, Alignment align
     return {point.x() + steps * (size.width() - w) / 2, point.y() + (size.height() - h) / 2, w, h};
 }
 
-linear::Bounds linear::Bounds::scale(const double &factor) const {
+planar::Bounds planar::Bounds::scale(const double &factor) const {
     return scale({factor, factor});
 }
 
-linear::Bounds linear::Bounds::scale(const Size<double> &factor) const {
+planar::Bounds planar::Bounds::scale(const Size<double> &factor) const {
     return scale_about(factor, center());
 }
 
-linear::Bounds linear::Bounds::scale_about(const double &factor, const Point<double> &origin) const {
+planar::Bounds planar::Bounds::scale_about(const double &factor, const Point<double> &origin) const {
     return scale_about({factor, factor}, origin);
 }
 
-linear::Bounds linear::Bounds::scale_about(const Size<double> &factor, const Point<double> &origin) const {
+planar::Bounds planar::Bounds::scale_about(const Size<double> &factor, const Point<double> &origin) const {
     auto x = factor.width() * point.x() + (1 - factor.width()) * origin.x();
     auto y = factor.height() * point.y() + (1 - factor.height()) * origin.y();
     return {
@@ -243,79 +247,88 @@ linear::Bounds linear::Bounds::scale_about(const Size<double> &factor, const Poi
     };
 }
 
-linear::Bounds linear::Bounds::slice(const Dimensions &dimensions, const linear::Slice &rows, const linear::Slice &cols)
+planar::Bounds planar::Bounds::slice(const Dimensions &dimensions, const planar::Slice &rows, const planar::Slice &cols)
     const {
     return Bounds(grid(dimensions).slice(rows, cols));
 }
 
-std::pair<linear::Bounds, linear::Bounds> linear::Bounds::split_width(double x) const {
+std::pair<planar::Bounds, planar::Bounds> planar::Bounds::split_width(double x) const {
     return {
         Bounds(point, Size<double>(x, size.height())),
         Bounds(point + Size<double>(x, 0), size - Size<double>(x, 0)),
     };
 }
 
-std::pair<linear::Bounds, linear::Bounds> linear::Bounds::split_height(double y) const {
+std::pair<planar::Bounds, planar::Bounds> planar::Bounds::split_height(double y) const {
     return {
         Bounds(point, Size<double>(size.width(), y)),
         Bounds(point + Size<double>(0, y), size - Size<double>(0, y)),
     };
 }
 
-std::vector<linear::Point<double>> linear::Bounds::sample(size_t side) const {
+std::vector<planar::Point<double>> planar::Bounds::sample(size_t side) const {
     if (side == 1) {
         return {center()};
     }
 
-    std::function<Point<double>(double, double)> pair = [](auto x, auto y) {
-        return Point<double>(x, y);
-    };
+    auto pairs = funky::product(
+        funky::linspace(point.x(), point.x() + size.width(), side),
+        funky::linspace(point.y(), point.y() + size.height(), side)
+    );
 
-    return functional::product(
-        pair,
-        functional::linspace(point.x(), point.x() + size.width(), side),
-        functional::linspace(point.y(), point.y() + size.height(), side)
+    return funky::map<std::vector<Point<double>>>(
+        [](auto pair) {
+            return Point<double>(pair.first, pair.second);
+        },
+        pairs
     );
 }
 
-std::vector<linear::Bounds> linear::Bounds::rows(size_t n) const {
-    linear::Size<double> segment(size.width(), size.height() / static_cast<double>(n));
+std::vector<planar::Bounds> planar::Bounds::rows(size_t n) const {
+    planar::Size<double> segment(size.width(), size.height() / static_cast<double>(n));
 
-    std::function<linear::Bounds(size_t)> split = [&segment, &point = point](auto i) {
-        linear::Point<double> row(point.x(), point.y() + segment.height() * static_cast<double>(i));
-        return linear::Bounds(row, segment);
+    std::function<planar::Bounds(size_t)> split = [&segment, &point = point](auto i) {
+        planar::Point<double> row(point.x(), point.y() + segment.height() * static_cast<double>(i));
+        return planar::Bounds(row, segment);
     };
 
-    return functional::map(split, functional::range(n));
+    return funky::map<std::vector<Bounds>>(split, funky::range(n));
 }
 
-std::vector<linear::Bounds> linear::Bounds::cols(size_t n) const {
-    linear::Size<double> segment(size.width() / static_cast<double>(n), size.height());
+std::vector<planar::Bounds> planar::Bounds::cols(size_t n) const {
+    planar::Size<double> segment(size.width() / static_cast<double>(n), size.height());
 
-    std::function<linear::Bounds(size_t)> split = [&segment, &point = point](auto i) {
-        linear::Point<double> row(point.x() + segment.width() * i, point.y());
-        return linear::Bounds(row, segment);
+    std::function<planar::Bounds(size_t)> split = [&segment, &point = point](auto i) {
+        planar::Point<double> row(point.x() + segment.width() * i, point.y());
+        return planar::Bounds(row, segment);
     };
 
-    return functional::map(split, functional::range(n));
+    return funky::map<std::vector<Bounds>>(split, funky::range(n));
 }
 
-linear::Matrix<linear::Bounds> linear::Bounds::tile(const Dimensions &dimensions, const Size<double> &padding) const {
-    std::function<Bounds(size_t, size_t)> shift = [&point = point, &size = size, &padding](auto col, auto row) {
-        auto x = static_cast<double>(col);
-        auto y = static_cast<double>(row);
-
-        Point<double> offset(point.x() + (size + padding).width() * y, point.y() + (size + padding).height() * x);
-        Bounds bounds(offset, size);
-        return bounds;
-    };
+planar::Matrix<planar::Bounds> planar::Bounds::tile(const Dimensions &dimensions, const Size<double> &padding) const {
+    auto pairs = funky::product(funky::range(dimensions.rows), funky::range(dimensions.cols));
 
     return {
-        functional::product(shift, functional::range(dimensions.rows), functional::range(dimensions.cols)),
-        dimensions.cols};
+        funky::map<std::vector<Bounds>>(
+            [&point = point, &size = size, &padding](auto pair) {
+                auto x = static_cast<double>(pair.first);
+                auto y = static_cast<double>(pair.second);
+
+                Point<double> offset(
+                    point.x() + (size + padding).width() * y,
+                    point.y() + (size + padding).height() * x
+                );
+                Bounds bounds(offset, size);
+                return bounds;
+            },
+            pairs
+        ),
+        dimensions.cols
+    };
 }
 
-linear::Matrix<linear::Bounds> linear::Bounds::grid(
+planar::Matrix<planar::Bounds> planar::Bounds::grid(
     const Dimensions &dimensions,
     const Size<double> &padding,
     const Size<double> &margin

@@ -2,7 +2,7 @@
 #include "../linear/vector.tpp"
 #include <gtest/gtest.h>
 
-using namespace linear;
+using namespace planar;
 
 TEST(Point, Operators) {
     EXPECT_EQ(Point(1, 1) + Vector(1, 1), Point(2, 2));

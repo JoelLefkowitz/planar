@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace linear {
+namespace planar {
     template <typename T>
     class Size;
 

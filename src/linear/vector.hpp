@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace linear {
+namespace planar {
     template <typename T>
     class Vector {
       public:

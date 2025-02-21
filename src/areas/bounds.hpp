@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-namespace linear {
+namespace planar {
     enum class Alignment {
         Left,
         Center,
@@ -83,7 +83,7 @@ namespace linear {
         Bounds scale_about(const double &factor, const Point<double> &origin) const;
         Bounds scale_about(const Size<double> &factor, const Point<double> &origin) const;
 
-        Bounds slice(const Dimensions &dimensions, const linear::Slice &rows, const linear::Slice &cols) const;
+        Bounds slice(const Dimensions &dimensions, const planar::Slice &rows, const planar::Slice &cols) const;
 
         std::pair<Bounds, Bounds> split_width(double x) const;
         std::pair<Bounds, Bounds> split_height(double y) const;

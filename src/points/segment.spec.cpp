@@ -2,7 +2,7 @@
 #include "point.hpp"
 #include <gtest/gtest.h>
 
-using namespace linear;
+using namespace planar;
 
 TEST(Segment, Midpoint) {
     EXPECT_EQ(Segment<double>({0.0, 0.0}, {2.0, 2.0}).midpoint(), Point(1.0, 1.0));

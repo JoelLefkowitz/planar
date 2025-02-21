@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-namespace linear {
+namespace planar {
     class Slice {
       public:
         size_t start;

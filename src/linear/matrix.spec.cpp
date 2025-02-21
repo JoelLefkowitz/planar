@@ -4,17 +4,17 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-using namespace linear;
+using namespace planar;
 
 // clang-format off
 TEST(Matrix, Chunk) {
     EXPECT_EQ(
-        Matrix<int>(functional::range(0, 6), 2),
+        Matrix<int>(funky::range(0, 6), 2),
         Matrix<int>({{0, 1}, {2, 3}, {4, 5}})
     );
 
     EXPECT_EQ(
-        Matrix<int>(functional::range(0, 6), 3),
+        Matrix<int>(funky::range(0, 6), 3),
         Matrix<int>({{0, 1, 2}, {3, 4, 5}})
     );
 }

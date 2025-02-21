@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <vector>
 
-namespace linear {
+namespace planar {
     class Dimensions;
     class Slice;
 
@@ -32,7 +32,7 @@ namespace linear {
 
         T get(const Point<size_t> &point) const;
 
-        Matrix<T> slice(const linear::Slice &rows, const linear::Slice &cols) const;
+        Matrix<T> slice(const planar::Slice &rows, const planar::Slice &cols) const;
 
         T sum() const;
     };

@@ -3,7 +3,7 @@
 
 #include "../linear/vector.hpp"
 
-namespace linear {
+namespace planar {
     template <typename T>
     class Size {
       public:

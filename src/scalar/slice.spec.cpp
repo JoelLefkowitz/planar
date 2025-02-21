@@ -1,7 +1,7 @@
 #include "slice.hpp"
 #include <gtest/gtest.h>
 
-using namespace linear;
+using namespace planar;
 
 TEST(Slice, Operators) {
     EXPECT_FALSE(Slice(0, 0) == Slice(1, 1));

@@ -12,23 +12,21 @@ from miniscons import (
 )
 from walkmate import tree
 
-conandeps = "build/conan/SConscript_conandeps"
-
-env = conan(source=conandeps)
+env = conan()
 
 runtime = Build(
     "build",
     tree("src", r"(?<!\.spec)\.cpp$", ["test.cpp"]),
     flags("c++20"),
     shared=True,
-    rename=PlanarConan.name,
+    rename="planar",
 )
 
 tests = Build(
     "tests",
     tree("src", r"\.cpp$"),
     flags("c++20"),
-    packages(["gtest"], source=conandeps),
+    packages(["gtest"]),
 )
 
 test = Target(
@@ -58,7 +56,7 @@ cppcheck = Script(
     ],
 )
 
-clang_tidy= Script(
+clang_tidy = Script(
     "clang-tidy",
     ["clang-tidy", tree("src", r"\.(cpp)$"), "--", [f"-I{i}" for i in includes]],
 )

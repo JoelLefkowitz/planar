@@ -5,7 +5,7 @@
 #include "../points/segment.tpp"
 #include <gtest/gtest.h>
 
-using namespace linear;
+using namespace planar;
 
 // clang-format off
 TEST(Bounds, FromVector) {
@@ -301,7 +301,7 @@ TEST(Bounds, Cols) {
 TEST(Bounds, Tile) {
     EXPECT_EQ(
         Bounds(0.0, 0.0, 1.0, 1.0).tile({2, 2}),
-        linear::Matrix<Bounds>({
+        planar::Matrix<Bounds>({
             {{0.0, 0.0, 1.0, 1.0}, {1.0, 0.0, 1.0, 1.0}},
             {{0.0, 1.0, 1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}},
         })
@@ -309,14 +309,14 @@ TEST(Bounds, Tile) {
 
     EXPECT_EQ(
         Bounds(0.0, 0.0, 1.0, 1.0).tile({2, 3}),
-        linear::Matrix<Bounds>({
+        planar::Matrix<Bounds>({
             {{0.0, 0.0, 1.0, 1.0}, {1.0, 0.0, 1.0, 1.0}, {2.0, 0.0, 1.0, 1.0}},
             {{0.0, 1.0, 1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}, {2.0, 1.0, 1.0, 1.0}},
         })
     );
 
     EXPECT_EQ(Bounds(0.0, 0.0, 1.0, 1.0).tile({2, 2}, {1.0, 1.0}),
-        linear::Matrix<Bounds>({
+        planar::Matrix<Bounds>({
             {{0.0, 0.0, 1.0, 1.0}, {2.0, 0.0, 1.0, 1.0}},
             {{0.0, 2.0, 1.0, 1.0}, {2.0, 2.0, 1.0, 1.0}}
         })
@@ -326,7 +326,7 @@ TEST(Bounds, Tile) {
 TEST(Bounds, Grid) {
     EXPECT_EQ(
         Bounds(0.0, 0.0, 10.0, 10.0).grid({4, 2}),
-        linear::Matrix<Bounds>({
+        planar::Matrix<Bounds>({
             {{0.0, 0.0, 5.0, 2.5}, {5.0, 0.0, 5.0, 2.5}},
             {{0.0, 2.5, 5.0, 2.5}, {5.0, 2.5, 5.0, 2.5}},
             {{0.0, 5.0, 5.0, 2.5}, {5.0, 5.0, 5.0, 2.5}},
@@ -336,7 +336,7 @@ TEST(Bounds, Grid) {
 
     EXPECT_EQ(
         Bounds(0.0, 0.0, 10.0, 10.0).grid({2, 4}),
-        linear::Matrix<Bounds>({
+        planar::Matrix<Bounds>({
             {{0.0, 0.0, 2.5, 5.0}, {2.5, 0.0, 2.5, 5.0}, {5.0, 0.0, 2.5, 5.0}, {7.5, 0.0, 2.5, 5.0}},
             {{0.0, 5.0, 2.5, 5.0}, {2.5, 5.0, 2.5, 5.0}, {5.0, 5.0, 2.5, 5.0}, {7.5, 5.0, 2.5, 5.0}},
         })
@@ -344,7 +344,7 @@ TEST(Bounds, Grid) {
 
     EXPECT_EQ(
         Bounds(0.0, 0.0, 10.0, 10.0).grid({2, 2}, {1.0, 1.0}, {1.0, 1.0}),
-        linear::Matrix<Bounds>({
+        planar::Matrix<Bounds>({
             {{2.0, 2.0, 2.0, 2.0}, {6.0, 2.0, 2.0, 2.0}},
             {{2.0, 6.0, 2.0, 2.0}, {6.0, 6.0, 2.0, 2.0}},
         })

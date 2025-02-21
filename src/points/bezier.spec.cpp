@@ -1,9 +1,9 @@
 #include "bezier.hpp"
 #include "point.hpp"
-#include <functional/generics/functor/map.tpp>
+#include <funky/generics/iterables.tpp>
 #include <gtest/gtest.h>
 
-using namespace linear;
+using namespace planar;
 
 TEST(Bezier, FromPoints) {
     Bezier reference({0, 0}, {0, 1}, {1, 1}, {1, 0});

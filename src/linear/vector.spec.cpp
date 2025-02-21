@@ -1,7 +1,7 @@
 #include "vector.tpp"
 #include <gtest/gtest.h>
 
-using namespace linear;
+using namespace planar;
 
 TEST(Vector, Operators) {
     EXPECT_TRUE(Vector(1, 1) == Vector(1, 1));

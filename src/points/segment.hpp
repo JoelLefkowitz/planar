@@ -3,7 +3,7 @@
 
 #include "point.hpp"
 
-namespace linear {
+namespace planar {
     template <typename T>
     class Segment {
       public:

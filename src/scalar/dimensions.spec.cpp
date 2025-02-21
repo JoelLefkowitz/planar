@@ -1,7 +1,7 @@
 #include "dimensions.hpp"
 #include <gtest/gtest.h>
 
-using namespace linear;
+using namespace planar;
 
 TEST(Dimensions, Operators) {
     EXPECT_FALSE(Dimensions(0, 0) == Dimensions(1, 1));

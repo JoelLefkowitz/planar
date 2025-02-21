@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <string>
 
-namespace linear {
+namespace planar {
     class Dimensions {
       public:
         size_t rows;

@@ -6,14 +6,12 @@
 #include <algorithm>
 #include <cmath>
 #include <fmt/core.h>
-#include <functional/generics/functor/map.tpp>
-#include <functional/implementations/vectors/ranges.tpp>
 
-linear::Bezier::Bezier(
-    const linear::Point<double> &p1,
-    const linear::Point<double> &p2,
-    const linear::Point<double> &p3,
-    const linear::Point<double> &p4
+planar::Bezier::Bezier(
+    const planar::Point<double> &p1,
+    const planar::Point<double> &p2,
+    const planar::Point<double> &p3,
+    const planar::Point<double> &p4
 )
     : p1(p1)
     , p2(p2)
@@ -21,7 +19,7 @@ linear::Bezier::Bezier(
     , p4(p4) {
 }
 
-linear::Bezier::Bezier(const std::vector<Point<double>> &points) {
+planar::Bezier::Bezier(const std::vector<Point<double>> &points) {
     if (points.size() < 2) {
         return;
     }
@@ -58,19 +56,19 @@ linear::Bezier::Bezier(const std::vector<Point<double>> &points) {
     p3 = best_p3;
 }
 
-bool linear::Bezier::operator==(const Bezier &rhs) const {
+bool planar::Bezier::operator==(const Bezier &rhs) const {
     return p1 == rhs.p1 && p2 == rhs.p2 && p3 == rhs.p3 && p4 == rhs.p4;
 }
 
-bool linear::Bezier::operator!=(const Bezier &rhs) const {
+bool planar::Bezier::operator!=(const Bezier &rhs) const {
     return !(*this == rhs);
 }
 
-std::string linear::Bezier::repr() const {
+std::string planar::Bezier::repr() const {
     return fmt::format("[{}, {}, {}, {}]", p1.repr(), p2.repr(), p3.repr(), p4.repr());
 }
 
-linear::Point<double> linear::Bezier::point(double t) const {
+planar::Point<double> planar::Bezier::point(double t) const {
     auto term = [t](auto i, auto j) {
         return std::pow((1 - t), i) * std::pow(t, j);
     };
@@ -85,14 +83,14 @@ linear::Point<double> linear::Bezier::point(double t) const {
     };
 }
 
-std::vector<linear::Point<double>> linear::Bezier::sample(size_t n) const {
+std::vector<planar::Point<double>> planar::Bezier::sample(size_t n) const {
     std::function<Point<double>(double)> point = [this](auto t) {
         return this->point(t);
     };
-    return functional::map(point, functional::linspace(0.0, 1.0, n));
+    return funky::map<std::vector<Point<double>>>(point, funky::linspace(0.0, 1.0, n));
 }
 
-linear::Bezier linear::Bezier::shift(const linear::Size<double> &offset) const {
+planar::Bezier planar::Bezier::shift(const planar::Size<double> &offset) const {
     return {
         p1 + offset,
         p2 + offset,
@@ -101,7 +99,7 @@ linear::Bezier linear::Bezier::shift(const linear::Size<double> &offset) const {
     };
 }
 
-linear::Bezier linear::Bezier::transform(const std::function<linear::Point<double>(const linear::Point<double> &)> &map
+planar::Bezier planar::Bezier::transform(const std::function<planar::Point<double>(const planar::Point<double> &)> &map
 ) const {
     return {
         map(p1),
@@ -111,13 +109,13 @@ linear::Bezier linear::Bezier::transform(const std::function<linear::Point<doubl
     };
 }
 
-double linear::Bezier::square_error(const std::vector<Point<double>> &points) const {
+double planar::Bezier::square_error(const std::vector<Point<double>> &points) const {
     auto copy = points;
     std::sort(copy.begin(), copy.end());
 
     double error = 0;
 
-    for (const auto t : functional::linspace(0.0, 1.0, 100)) {
+    for (const auto t : funky::linspace(0.0, 1.0, 100)) {
         auto projection = point(1 - t);
 
         while (!copy.empty() && projection.x() <= copy.back().x()) {
