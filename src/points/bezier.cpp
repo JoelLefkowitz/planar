@@ -83,13 +83,6 @@ planar::Point<double> planar::Bezier::point(double t) const {
     };
 }
 
-std::vector<planar::Point<double>> planar::Bezier::sample(size_t n) const {
-    std::function<Point<double>(double)> point = [this](auto t) {
-        return this->point(t);
-    };
-    return funky::map<std::vector<Point<double>>>(point, funky::linspace(0.0, 1.0, n));
-}
-
 planar::Bezier planar::Bezier::shift(const planar::Size<double> &offset) const {
     return {
         p1 + offset,

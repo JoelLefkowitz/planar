@@ -5,22 +5,6 @@
 
 using namespace planar;
 
-TEST(Bezier, FromPoints) {
-    Bezier reference({0, 0}, {0, 1}, {1, 1}, {1, 0});
-    auto points = reference.sample(100);
-
-    Bezier bezier(points);
-
-    EXPECT_EQ(bezier.p1, points.front());
-    EXPECT_EQ(bezier.p4, points.back());
-
-    EXPECT_NEAR(bezier.p2.x(), 0, 0.2);
-    EXPECT_NEAR(bezier.p2.y(), 1, 0.2);
-
-    EXPECT_NEAR(bezier.p3.x(), 1, 0.2);
-    EXPECT_NEAR(bezier.p3.y(), 1, 0.2);
-}
-
 TEST(Bezier, Repr) {
     EXPECT_EQ(
         Bezier({0, 0}, {0, 1}, {1, 1}, {1, 0}).repr(),
@@ -43,8 +27,6 @@ TEST(Bezier, Point) {
 
 TEST(Bezier, SquareError) {
     Bezier bezier({0, 0}, {0, 0}, {1, 1}, {1, 1});
-    EXPECT_NEAR(bezier.square_error(bezier.sample(10)), 0, 0.01);
-
     std::vector<Point<double>> points({
         {0, 1}
     });

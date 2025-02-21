@@ -29,8 +29,6 @@ namespace planar {
 
         Point<double> point(double t) const;
 
-        std::vector<Point<double>> sample(size_t n) const;
-
         Bezier shift(const Size<double> &offset) const;
 
         Bezier transform(const std::function<Point<double>(const Point<double> &)> &map) const;
