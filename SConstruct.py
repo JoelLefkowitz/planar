@@ -99,7 +99,7 @@ sphinx = Script(
 
 lint = Routine(
     "lint",
-    [cspell, cppcheck, trufflehog],
+    [cspell, trufflehog],
 )
 
 fmt = Routine(

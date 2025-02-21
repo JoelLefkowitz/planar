@@ -324,8 +324,7 @@ planar::Matrix<planar::Bounds> planar::Bounds::tile(const Dimensions &dimensions
             },
             pairs
         ),
-        dimensions.cols
-    };
+        dimensions.cols};
 }
 
 planar::Matrix<planar::Bounds> planar::Bounds::grid(
