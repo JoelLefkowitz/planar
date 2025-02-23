@@ -1,4 +1,4 @@
 sources:
-  "0.2.0":
-    url: "https://github.com/JoelLefkowitz/planar/archive/refs/tags/v0.2.0.tar.gz"
-    sha256: "c0f07460feb99371c6a562525dd2f1c90f8ef3c5a3233e477307f9bdd1ae378f"
+  "0.3.0":
+    url: "https://github.com/JoelLefkowitz/planar/archive/refs/tags/v0.3.0.tar.gz"
+    sha256: "ee75ba8dd06d0d49783212de5d94f45abf8de40fab0960c0468935f53d4168f5"
