@@ -7,7 +7,7 @@ from conan.tools.layout import basic_layout
 class PlanarConan(ConanFile):
     requires = (
         "fmt/11.1.3",
-        "funky/0.2.1",
+        "funky/0.3.0",
     )
 
     def layout(self):
