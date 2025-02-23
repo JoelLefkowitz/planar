@@ -1,7 +1,7 @@
 [project]
 name = "planar"
 description = "Planar geometry structures and transformations."
-version = "0.3.0"
+version = "0.3.1"
 
 keywords = ["vectors", "areas", "bounds", "coordinates", "geometry"]
 
