@@ -31,8 +31,6 @@ class PlanarConan(ConanFile):
         "build_type",
     )
 
-    package_type = "static-library"
-
     exports_sources = (
         "src/*.[cht]pp",
         "conanfile.py",
@@ -44,6 +42,9 @@ class PlanarConan(ConanFile):
         "fmt/11.1.3",
         "funky/0.3.0",
     )
+
+    def configure(self):
+        self.options["*"].shared = False
 
     def layout(self):
         basic_layout(self)
