@@ -43,9 +43,6 @@ class PlanarConan(ConanFile):
         "funky/0.3.0",
     )
 
-    def configure(self):
-        self.options["*"].shared = False
-
     def layout(self):
         basic_layout(self)
 
