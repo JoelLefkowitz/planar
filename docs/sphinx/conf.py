@@ -4,7 +4,7 @@ from glob import glob
 
 project = "Planar"
 package = "planar"
-version = "0.1.3"
+version = "0.2.0"
 
 project_copyright = f"{date.today().year} Joel Lefkowitz"
 
